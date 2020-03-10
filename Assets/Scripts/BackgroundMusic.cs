@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
+    private float musicVolume = 1f;
+
     // Start is called before the first frame update
     private static BackgroundMusic instance = null;
     public static BackgroundMusic Instance
