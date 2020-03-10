@@ -10,14 +10,20 @@ public class PlayerController : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    public float crouchHeight = 0.1f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    public LayerMask groundMask;    
 
     Vector3 velocity;
     bool isGrounded;
 
+    CharacterController characterCollider;
+    void Start ()
+    {
+        characterCollider = gameObject.GetComponent<CharacterController>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -43,5 +49,14 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            characterCollider.height = crouchHeight;
+        }
+        else
+        {
+            characterCollider.height = 2f;
+        }
     }
 }
