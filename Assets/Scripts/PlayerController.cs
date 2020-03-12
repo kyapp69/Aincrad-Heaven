@@ -13,11 +13,19 @@ public class PlayerController : MonoBehaviour
     public float crouchHeight = 0.1f;
 
     public Transform groundCheck;
+
     public float groundDistance = 0.4f;
-    public LayerMask groundMask;    
+    public float roofDistance = 0.4f;
+
+    public LayerMask groundMask;
+    public LayerMask respawnMask;
+    public LayerMask roofMask;
+
+    bool isGrounded;
+    bool isRespawn;
+    bool isRoof;
 
     Vector3 velocity;
-    bool isGrounded;
 
     CharacterController characterCollider;
     void Start ()
@@ -28,10 +36,24 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isRespawn = Physics.CheckSphere(groundCheck.position, groundDistance, respawnMask);
+        isRoof = Physics.CheckSphere(groundCheck.position, roofDistance, roofMask);
 
-        if(isGrounded && velocity.y <0)
+        if (isGrounded && velocity.y <0)
         {
             velocity.y = -2f;
+        }
+
+        if(isRespawn && velocity.y <0)
+        {
+            Debug.Log("Ground touched");
+            //Teleport to specified cords
+        }
+
+        if(isRoof && velocity.y <0)
+        {
+            Debug.Log("Roof touched");
+            //Cannot crouch when roof is being touched
         }
 
         float x = Input.GetAxis("Horizontal");
