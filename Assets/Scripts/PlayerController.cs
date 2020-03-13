@@ -25,12 +25,14 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask respawnMask;
     public LayerMask Level2Mask;
+    public LayerMask Level3Mask;
     public LayerMask LadderMask;
     public LayerMask RoofMask;
 
     bool isGrounded;
     bool isRespawn;
     bool isLevel2;
+    bool isLevel3;
     bool isLadder;
     bool isRoof;
 
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         isRespawn = Physics.CheckSphere(groundCheck.position, groundDistance, respawnMask);
         isLevel2 = Physics.CheckSphere(groundCheck.position, groundDistance, Level2Mask);
+        isLevel3 = Physics.CheckSphere(groundCheck.position, groundDistance, Level3Mask);
         isLadder = Physics.CheckSphere(ladderCheck.position, groundDistance, LadderMask);
         isRoof = Physics.CheckSphere(roofCheck.position, groundDistance, RoofMask);
 
@@ -60,13 +63,6 @@ public class PlayerController : MonoBehaviour
             teleporttoTop();
         }
 
-        Vector3 movef = transform.up * 2;
-
-        if (isLadder && velocity.y < 0)
-        {
-            Debug.Log("Ladder touched");
-        }
-
         if (isRoof && velocity.y < 0)
         {
             characterCollider.height = crouchHeight;
@@ -77,10 +73,22 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("Level2", LoadSceneMode.Single);
         }
 
+        if (isLevel3 && velocity.y < 0)
+        {
+            SceneManager.LoadScene("Level3", LoadSceneMode.Single);
+        }
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        //Vector3 move = transform.right * x + transform.forward * z;
         Vector3 move = transform.right * x + transform.forward * z;
+
+        if (isLadder && velocity.y < 0)
+        {
+            Debug.Log("Ladder touched");
+            move = transform.right * x + transform.up * z;
+        }
 
         controller.Move(move * speed * Time.deltaTime);
 
