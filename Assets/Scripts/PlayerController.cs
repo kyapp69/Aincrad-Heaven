@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,11 +20,11 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask groundMask;
     public LayerMask respawnMask;
-    public LayerMask roofMask;
+    public LayerMask Level2Mask;
 
     bool isGrounded;
     bool isRespawn;
-    bool isRoof;
+    bool isLevel2;
 
     Vector3 velocity;
 
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         isRespawn = Physics.CheckSphere(groundCheck.position, groundDistance, respawnMask);
-        isRoof = Physics.CheckSphere(groundCheck.position, roofDistance, roofMask);
+        isLevel2 = Physics.CheckSphere(groundCheck.position, groundDistance, Level2Mask);
 
         if (isGrounded && velocity.y <0)
         {
@@ -46,14 +47,12 @@ public class PlayerController : MonoBehaviour
 
         if(isRespawn && velocity.y <0)
         {
-            Debug.Log("Ground touched");
-            //Teleport to specified cords
+            teleporttoTop();
         }
 
-        if(isRoof && velocity.y <0)
+        if(isLevel2 && velocity.y <0)
         {
-            Debug.Log("Roof touched");
-            //Cannot crouch when roof is being touched
+            SceneManager.LoadScene("Level2", LoadSceneMode.Single);
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -79,6 +78,13 @@ public class PlayerController : MonoBehaviour
         else
         {
             characterCollider.height = 2f;
+        }
+
+        void teleporttoTop()
+        {
+            transform.position = new Vector3(0.5620441f, 1, -800);
+            Vector3 newPos = new Vector3(0.5620441f, 1, -800);
+            transform.parent.position = newPos;
         }
     }
 }
