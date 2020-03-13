@@ -12,19 +12,27 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public float crouchHeight = 0.1f;
+    public float XX = 0.5620441f;
+    public float YY = 1;
+    public float ZZ = -800;
 
     public Transform groundCheck;
+    public Transform ladderCheck;
+    public Transform roofCheck;
 
     public float groundDistance = 0.4f;
-    public float roofDistance = 0.4f;
 
     public LayerMask groundMask;
     public LayerMask respawnMask;
     public LayerMask Level2Mask;
+    public LayerMask LadderMask;
+    public LayerMask RoofMask;
 
     bool isGrounded;
     bool isRespawn;
     bool isLevel2;
+    bool isLadder;
+    bool isRoof;
 
     Vector3 velocity;
 
@@ -39,6 +47,8 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         isRespawn = Physics.CheckSphere(groundCheck.position, groundDistance, respawnMask);
         isLevel2 = Physics.CheckSphere(groundCheck.position, groundDistance, Level2Mask);
+        isLadder = Physics.CheckSphere(ladderCheck.position, groundDistance, LadderMask);
+        isRoof = Physics.CheckSphere(roofCheck.position, groundDistance, RoofMask);
 
         if (isGrounded && velocity.y <0)
         {
@@ -50,7 +60,19 @@ public class PlayerController : MonoBehaviour
             teleporttoTop();
         }
 
-        if(isLevel2 && velocity.y <0)
+        Vector3 movef = transform.up * 2;
+
+        if (isLadder && velocity.y < 0)
+        {
+            Debug.Log("Ladder touched");
+        }
+
+        if (isRoof && velocity.y < 0)
+        {
+            characterCollider.height = crouchHeight;
+        }
+
+        if (isLevel2 && velocity.y <0)
         {
             SceneManager.LoadScene("Level2", LoadSceneMode.Single);
         }
@@ -82,8 +104,8 @@ public class PlayerController : MonoBehaviour
 
         void teleporttoTop()
         {
-            transform.position = new Vector3(0.5620441f, 1, -800);
-            Vector3 newPos = new Vector3(0.5620441f, 1, -800);
+            transform.position = new Vector3(XX, YY, ZZ);
+            Vector3 newPos = new Vector3(XX, YY, ZZ);
             transform.parent.position = newPos;
         }
     }
