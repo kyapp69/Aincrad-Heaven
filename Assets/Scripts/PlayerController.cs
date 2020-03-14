@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public float ZZ = -800;
 
     public Transform groundCheck;
-    public Transform ladderCheck;
     public Transform roofCheck;
 
     public float groundDistance = 0.4f;
@@ -26,14 +25,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask respawnMask;
     public LayerMask Level2Mask;
     public LayerMask Level3Mask;
-    public LayerMask LadderMask;
     public LayerMask RoofMask;
 
     bool isGrounded;
     bool isRespawn;
     bool isLevel2;
     bool isLevel3;
-    bool isLadder;
     bool isRoof;
 
     Vector3 velocity;
@@ -50,7 +47,6 @@ public class PlayerController : MonoBehaviour
         isRespawn = Physics.CheckSphere(groundCheck.position, groundDistance, respawnMask);
         isLevel2 = Physics.CheckSphere(groundCheck.position, groundDistance, Level2Mask);
         isLevel3 = Physics.CheckSphere(groundCheck.position, groundDistance, Level3Mask);
-        isLadder = Physics.CheckSphere(ladderCheck.position, groundDistance, LadderMask);
         isRoof = Physics.CheckSphere(roofCheck.position, groundDistance, RoofMask);
 
         if (isGrounded && velocity.y <0)
@@ -83,12 +79,6 @@ public class PlayerController : MonoBehaviour
 
         //Vector3 move = transform.right * x + transform.forward * z;
         Vector3 move = transform.right * x + transform.forward * z;
-
-        if (isLadder && velocity.y < 0)
-        {
-            Debug.Log("Ladder touched");
-            move = transform.right * x + transform.up * z;
-        }
 
         controller.Move(move * speed * Time.deltaTime);
 
