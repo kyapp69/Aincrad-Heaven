@@ -38,4 +38,8 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("LoadedMenu", LoadSceneMode.Single);
     }
+    public void Ending()
+    {
+        SceneManager.LoadScene("Ending", LoadSceneMode.Single);
+    }
 }

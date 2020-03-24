@@ -71,7 +71,9 @@ public class PlayerController : MonoBehaviour
 
         if (isLevel3 && velocity.y < 0)
         {
-            SceneManager.LoadScene("Level3", LoadSceneMode.Single);
+            //SceneManager.LoadScene("Level3", LoadSceneMode.Single);
+            SceneManager.LoadScene("Ending", LoadSceneMode.Single);
+            //Sorry...
         }
 
         float x = Input.GetAxis("Horizontal");
