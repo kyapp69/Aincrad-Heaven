@@ -42,4 +42,9 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("Ending", LoadSceneMode.Single);
     }
+
+    public void Level2()
+    {
+        SceneManager.LoadScene("Level2", LoadSceneMode.Single);
+    }
 }

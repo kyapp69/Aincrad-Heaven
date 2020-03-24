@@ -3336,16 +3336,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 773308464}
-  PlayerObject: {fileID: 0}
   speed: 8
   gravity: -9.81
   jumpHeight: 2.5
   crouchHeight: 0.0001
-  XX: 0.5620441
-  YY: 1
-  ZZ: -800
+  XX: -0.011
+  YY: 20.819
+  ZZ: -634.07
   groundCheck: {fileID: 2028977342}
-  ladderCheck: {fileID: 756768908}
   roofCheck: {fileID: 424051527}
   groundDistance: 0.4
   groundMask:
@@ -3357,9 +3355,9 @@ MonoBehaviour:
   Level2Mask:
     serializedVersion: 2
     m_Bits: 2048
-  LadderMask:
+  Level3Mask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 8192
   RoofMask:
     serializedVersion: 2
     m_Bits: 512
