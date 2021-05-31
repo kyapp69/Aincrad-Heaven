@@ -9,10 +9,4 @@ public class PauseMusic : MonoBehaviour
     {
         BackgroundMusic.Instance.gameObject.GetComponent<AudioSource>().Pause();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

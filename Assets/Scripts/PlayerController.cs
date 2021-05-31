@@ -43,20 +43,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        LoadChecks();
+        ChecksUpdate();
+        MoveUpdate();
+        JumpUpdate();
+        CrouchUpdate();
+    }
+    private void LoadChecks()
+    {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         isRespawn = Physics.CheckSphere(groundCheck.position, groundDistance, respawnMask);
         isLevel2 = Physics.CheckSphere(groundCheck.position, groundDistance, Level2Mask);
         isLevel3 = Physics.CheckSphere(groundCheck.position, groundDistance, Level3Mask);
         isRoof = Physics.CheckSphere(roofCheck.position, groundDistance, RoofMask);
+    }
 
-        if (isGrounded && velocity.y <0)
+    private void ChecksUpdate()
+    {
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        if(isRespawn && velocity.y <0)
+        if (isRespawn && velocity.y < 0)
         {
-            teleporttoTop();
+            TeleportToTheTop();
         }
 
         if (isRoof && velocity.y < 0)
@@ -64,26 +75,39 @@ public class PlayerController : MonoBehaviour
             characterCollider.height = crouchHeight;
         }
 
-        if (isLevel2 && velocity.y <0)
+        if (isLevel2 && velocity.y < 0)
         {
             SceneManager.LoadScene("Level2", LoadSceneMode.Single);
         }
 
         if (isLevel3 && velocity.y < 0)
         {
-            //SceneManager.LoadScene("Level3", LoadSceneMode.Single);
             SceneManager.LoadScene("Ending", LoadSceneMode.Single);
             //Sorry...
         }
+    }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+    private void TeleportToTheTop()
+    {
+        transform.position = new Vector3(XX, YY, ZZ);
+        Vector3 newPos = new Vector3(XX, YY, ZZ);
+        transform.parent.position = newPos;
+    }
 
-        //Vector3 move = transform.right * x + transform.forward * z;
-        Vector3 move = transform.right * x + transform.forward * z;
+    private void CrouchUpdate()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            characterCollider.height = crouchHeight;
+        }
+        else
+        {
+            characterCollider.height = 2f;
+        }
+    }
 
-        controller.Move(move * speed * Time.deltaTime);
-
+    private void JumpUpdate()
+    {
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -92,21 +116,15 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
 
-        if(Input.GetKey(KeyCode.LeftControl))
-        {
-            characterCollider.height = crouchHeight;
-        }
-        else
-        {
-            characterCollider.height = 2f;
-        }
+    private void MoveUpdate()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
-        void teleporttoTop()
-        {
-            transform.position = new Vector3(XX, YY, ZZ);
-            Vector3 newPos = new Vector3(XX, YY, ZZ);
-            transform.parent.position = newPos;
-        }
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        controller.Move(move * speed * Time.deltaTime);
     }
 }
