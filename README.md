@@ -1,5 +1,3 @@
-[![Build 
-Status](https://travis-ci.com/KazuOfficial/Aincrad-Heaven.svg?branch=master)](https://travis-ci.com/KazuOfficial/Aincrad-Heaven)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 <!-- PROJECT LOGO -->
@@ -42,9 +40,9 @@ Status](https://travis-ci.com/KazuOfficial/Aincrad-Heaven.svg?branch=master)](ht
 
 ## About The Project
 
-![alt text](https://github.com/KazuOfficial/BetaCraft-Launcher/blob/master/images/menu.png)
-![alt text](https://github.com/KazuOfficial/BetaCraft-Launcher/blob/master/images/gameplay1.png)
-![alt text](https://github.com/KazuOfficial/BetaCraft-Launcher/blob/master/images/gameplay2.png)
+![alt text](https://github.com/KazuOfficial/Aincrad-Heaven/blob/master/images/menu.png)
+![alt text](https://github.com/KazuOfficial/Aincrad-Heaven/blob/master/images/gameplay1.png)
+![alt text](https://github.com/KazuOfficial/Aincrad-Heaven/blob/master/images/gameplay2.png)
 
 Get to the top of the Aincrad Castle in an exciting parkour adventure!
 
